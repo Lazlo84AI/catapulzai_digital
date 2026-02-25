@@ -29,6 +29,8 @@ const copy = {
     "Votre meilleure année.\nSans vos pires semaines.",
     "Faites en une semaine\nce que vos concurrents\nfont en un trimestre.",
     "Vos revenus montent.\nVotre charge mentale descend.",
+    "Votre business s'occupe de l'argent.\nVous, de votre famille.",
+    "Riche et présent pour votre famille.\nEnfin les deux en même temps.",
   ],
   heroParagraph:
     "CatapulZAI est un service à destination des entrepreneurs et des professionnels sur motivés à tirer le maximum de valeur de l'IA pour leurs avenirs.",
