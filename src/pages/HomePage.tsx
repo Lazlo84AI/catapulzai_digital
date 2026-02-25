@@ -8,18 +8,25 @@ import { useState, useEffect, useRef } from "react";
    Orange  : #FF7A00
    Violet  : #7c6cfc  (accent secondaire)
 ───────────────────────────────────────────── */
-const BLUE  = "#0986F1";
-const PINK  = "#FF398E";
-const GREEN = "#00D1CE";
+const BLUE   = "#0986F1";
+const PINK   = "#FF398E";
+const GREEN  = "#00D1CE";
+const ORANGE = "#FF7A00";
 
 /* ─────────────────────────────────────────────
    COPY
 ───────────────────────────────────────────── */
 const copy = {
   badge: "Consulting · Ingénierie · Venture IA",
-  heroTitle: "Plus de performance et moins de charge mentale. Exploitez la version IA de votre activité.",
+  heroTitles: [
+    "Votre activité tourne.\nMême quand vous ne travaillez pas.",
+    "Faites en une semaine\nce que vos concurrents\nfont en un trimestre.",
+    "Devenez la personne la plus\nproductive de votre secteur.",
+    "Travaillez moins.\nProduisez plus. Dormez mieux.",
+    "La vie du patron,\nsans les tâches du patron.",
+  ],
   heroParagraph:
-    "CatapulZ AI est un service de consulting, développement et venture building basé sur l'IA, utilisant des systèmes agentiques et du vibe coding pour donner la possibilité à des entrepreneurs, PME et executives de tirer le meilleur parti de l'IA pour leur avenir.",
+    "CatapulZAI est un service à destination des entrepreneurs et des professionnels sur motivés à tirer le maximum de valeur de l'IA pour leurs avenirs.",
   emailLabel: "Recevez nos ressources IA exclusives — gratuit",
   emailPlaceholder: "votre@email.com",
   emailCTA: "Rejoindre →",
@@ -42,7 +49,7 @@ const copy = {
       tag: "INGÉNIERIE IA",
       title: "Développement d'application IA et Systèmes agentiques sur mesure",
       desc: "Conception et déploiement de systèmes agentiques sur mesure avec agents autonomes et architecture technique (no-code, code et industrialisable) adaptée à vos processus métiers.",
-      accent: PINK,
+      accent: ORANGE,
       id: "pillar-1",
     },
     {
@@ -159,6 +166,29 @@ const css = `
     animation: czFadeUp 0.5s 0.16s ease both;
   }
 
+  /* ── HERO TITLE ROTATOR ── */
+  .cz-h1-track {
+    position: relative;
+    min-height: clamp(120px, 18vw, 260px);
+    margin-bottom: 32px;
+    display: flex; align-items: flex-start;
+  }
+  .cz-h1 {
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(36px, 5.5vw, 76px);
+    font-weight: 900; line-height: 1.05; letter-spacing: -2px;
+    color: #f0f0f0; white-space: pre-line;
+    position: absolute;
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+    animation: none;
+  }
+  .cz-h1.active { opacity: 1; transform: translateY(0); }
+  .cz-h1.exit   { opacity: 0; transform: translateY(-40px); }
+  @media (max-width: 640px) {
+    .cz-h1-track { min-height: clamp(160px, 40vw, 280px); }
+  }
+
   /* ── FORM ── */
   .cz-form-block { animation: czFadeUp 0.5s 0.24s ease both; max-width: 520px; }
   .cz-form-label {
@@ -244,7 +274,7 @@ const css = `
     background: #0a0a0f;
     padding: 52px 40px 40px;
     border-bottom: 1px solid rgba(255,255,255,0.06);
-    pointer-events: none;
+    pointer-events: auto;
   }
   .cz-pillars-intro-inner { max-width: 1140px; margin: 0 auto; }
   @media (max-width: 640px) { .cz-pillars-intro { padding: 40px 20px 28px; } }
@@ -261,26 +291,24 @@ const css = `
   }
 
   .cz-pillars-nav {
-    display: flex; gap: 0;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px; overflow: hidden;
-    max-width: 640px;
+    display: flex; gap: 12px;
+    max-width: 900px;
   }
   .cz-pillars-nav-item {
-    flex: 1; padding: 12px 16px;
+    flex: 1; padding: 18px 24px;
     font-family: 'Raleway', sans-serif;
-    font-size: 12px; font-weight: 800;
-    letter-spacing: 0.05em; text-transform: uppercase;
+    font-size: 16px; font-weight: 800;
+    letter-spacing: 0.04em; text-transform: uppercase;
     color: #444460; text-align: center;
-    border-right: 1px solid rgba(255,255,255,0.08);
-    transition: color 0.35s, background 0.35s;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    transition: color 0.25s, background 0.25s, border-color 0.25s, transform 0.2s;
     cursor: pointer;
   }
-  .cz-pillars-nav-item:last-child { border-right: none; }
-  .cz-pillars-nav-item:hover { color: #f0f0f0; }
-  .cz-pillars-nav-item.active-0 { color: #0986F1; background: rgba(9,134,241,0.06); }
-  .cz-pillars-nav-item.active-1 { color: #FF398E; background: rgba(255,57,142,0.06); }
-  .cz-pillars-nav-item.active-2 { color: #00D1CE; background: rgba(0,209,206,0.06); }
+  .cz-pillars-nav-item:hover { color: #f0f0f0; background: rgba(255,255,255,0.04); transform: translateY(-2px); }
+  .cz-pillars-nav-item.active-0 { color: #0986F1; background: rgba(9,134,241,0.08); border-color: rgba(9,134,241,0.3); }
+  .cz-pillars-nav-item.active-1 { color: #FF7A00; background: rgba(255,122,0,0.08); border-color: rgba(255,122,0,0.3); }
+  .cz-pillars-nav-item.active-2 { color: #00D1CE; background: rgba(0,209,206,0.08); border-color: rgba(0,209,206,0.3); }
   @media (max-width: 640px) {
     .cz-pillars-nav { flex-direction: column; }
     .cz-pillars-nav-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
@@ -331,7 +359,7 @@ const css = `
   .cz-card-num {
     font-family: 'Raleway', sans-serif;
     font-size: 110px; font-weight: 900; line-height: 1; letter-spacing: -8px;
-    color: rgba(255,255,255,0.035); margin-bottom: -12px; user-select: none;
+    color: rgba(255,255,255,0.35); margin-bottom: -12px; user-select: none;
   }
   .cz-card-num-label {
     font-family: 'Raleway', sans-serif;
@@ -352,6 +380,65 @@ const css = `
   }
   .cz-card-desc {
     font-size: 15px; line-height: 1.78; color: #7a7a98; font-weight: 300;
+  }
+
+  /* ── TEXT ROTATOR ── */
+  .cz-rotator {
+    position: relative; z-index: 5;
+    padding: 80px 40px 100px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    max-width: 860px; margin: 0 auto;
+  }
+  @media (max-width: 640px) { .cz-rotator { padding: 60px 20px 72px; } }
+
+  .cz-rotator-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 400; letter-spacing: 0.04em;
+    color: #555570; margin-bottom: 20px;
+    text-transform: none;
+  }
+
+  .cz-rotator-track {
+    position: relative;
+    min-height: 120px;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  @media (max-width: 640px) { .cz-rotator-track { min-height: 120px; } }
+
+  .cz-rotator-item {
+    position: absolute; left: 0; right: 0;
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(24px, 3.6vw, 48px);
+    font-weight: 800; letter-spacing: -1px; line-height: 1.15;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
+    white-space: pre-line;
+    padding: 0 16px;
+  }
+  .cz-rotator-item.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .cz-rotator-item.exit {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  .cz-rotator-cursor {
+    display: inline-block;
+    width: 2px; height: 0.8em;
+    background: currentColor;
+    margin-left: 5px;
+    vertical-align: middle;
+    border-radius: 1px;
+    animation: czBlink 1s step-end infinite;
+  }
+  @keyframes czBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
 
   /* ── FOOTER ── */
@@ -392,6 +479,49 @@ export default function HomePage() {
   const [scrollHintVisible, setScrollHintVisible] = useState(true);
   const [activeNav, setActiveNav] = useState(-1);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const rotatorPhrases = [
+    { text: "Faire vos to-dos à la voix", color: PINK },
+    { text: "Faire un follow up\npersonnalisé et automatisé", color: BLUE },
+    { text: "Créez des contenus uniques\nsans burn-out", color: GREEN },
+    { text: "Remplir le CRM\nau volant d'une voiture", color: PINK },
+    { text: "Former vos équipes automatiquement", color: BLUE },
+    { text: "Transformer vos données en décision", color: GREEN },
+    { text: "Multiplier vos capacités sans recruter", color: PINK },
+    { text: "Scalez sans augmenter vos coûts", color: BLUE },
+    { text: "Répondre aux appels d'offres\nautomatiquement", color: GREEN },
+    { text: "Évaluez automatiquement\ntel ou tel dossier", color: PINK },
+    { text: "Avoir un agent qui sait\ntout de votre entreprise", color: BLUE },
+    { text: "Coachez vos équipes\nsur la nouvelle stratégie", color: GREEN },
+    { text: "Déployez vos agents en 4 semaines", color: PINK },
+  ];
+  const [rotatorIndex, setRotatorIndex] = useState(0);
+  const [rotatorState, setRotatorState] = useState<"active" | "exit">("active");
+
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [heroState, setHeroState] = useState<"active" | "exit">("active");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRotatorState("exit");
+      setTimeout(() => {
+        setRotatorIndex((i) => (i + 1) % rotatorPhrases.length);
+        setRotatorState("active");
+      }, 420);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroState("exit");
+      setTimeout(() => {
+        setHeroIndex((i) => (i + 1) % copy.heroTitles.length);
+        setHeroState("active");
+      }, 500);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const id = "cz-styles";
@@ -480,7 +610,11 @@ export default function HomePage() {
           <span className="cz-badge-dot" />
           {copy.badge}
         </div>
-        <h1 className="cz-h1">{copy.heroTitle}</h1>
+        <div className="cz-h1-track">
+          <h1 className={`cz-h1 ${heroState}`}>
+            {copy.heroTitles[heroIndex]}
+          </h1>
+        </div>
         <p className="cz-hero-p">{copy.heroParagraph}</p>
 
         <div className="cz-form-block" id="contact">
@@ -515,7 +649,10 @@ export default function HomePage() {
                 key={label}
                 className={`cz-pillars-nav-item${activeNav === i ? ` active-${i}` : ""}`}
                 onClick={() => {
-                  document.getElementById(`pillar-${i}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+                  const el = document.getElementById(`pillar-${i}`);
+                  if (!el) return;
+                  const top = el.getBoundingClientRect().top + window.scrollY - 280;
+                  window.scrollTo({ top, behavior: "smooth" });
                 }}
               >
                 {label}
@@ -550,6 +687,20 @@ export default function HomePage() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* TEXT ROTATOR */}
+      <div className="cz-rotator">
+        <p className="cz-rotator-label">Avec CatapulZ AI, vous pouvez</p>
+        <div className="cz-rotator-track">
+          <span
+            className={`cz-rotator-item ${rotatorState}`}
+            style={{ color: rotatorPhrases[rotatorIndex].color }}
+          >
+            {rotatorPhrases[rotatorIndex].text}
+            <span className="cz-rotator-cursor" />
+          </span>
+        </div>
       </div>
 
       {/* FOOTER */}
