@@ -20,10 +20,15 @@ const copy = {
   badge: "Consulting · Ingénierie · Venture IA",
   heroTitles: [
     "Votre activité tourne.\nMême quand vous ne travaillez pas.",
-    "Faites en une semaine\nce que vos concurrents\nfont en un trimestre.",
+    "Votre boîte vaut 10x plus\nquand elle tourne sans vous.",
     "Devenez la personne la plus\nproductive de votre secteur.",
+    "Dormez tranquille.\nVotre pipeline tourne tout seul.",
     "Travaillez moins.\nProduisez plus. Dormez mieux.",
+    "Fini de choisir\nentre croître et souffler.",
     "La vie du patron,\nsans les tâches du patron.",
+    "Votre meilleure année.\nSans vos pires semaines.",
+    "Faites en une semaine\nce que vos concurrents\nfont en un trimestre.",
+    "Vos revenus montent.\nVotre charge mentale descend.",
   ],
   heroParagraph:
     "CatapulZAI est un service à destination des entrepreneurs et des professionnels sur motivés à tirer le maximum de valeur de l'IA pour leurs avenirs.",
