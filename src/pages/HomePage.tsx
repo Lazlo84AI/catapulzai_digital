@@ -63,7 +63,7 @@ const copy = {
     { label: "Business Cases", href: "#business-cases" },
     { label: "Ventures", href: "#ventures" },
   ],
-  navCTA: "Démarrer un projet →",
+  navCTA: "Faire de l'IA →",
 };
 
 /* ─────────────────────────────────────────────
@@ -106,6 +106,11 @@ const css = `
   .cz-nav-links a:hover { color: #f0f0f0; }
   .cz-nav-cta { background: #FF398E !important; color: #fff !important; padding: 8px 18px; border-radius: 7px; font-weight: 700 !important; font-size: 13px !important; transition: filter 0.2s !important; }
   .cz-nav-cta:hover { filter: brightness(1.1); }
+  .cz-cta-dropdown { position: relative; }
+  .cz-cta-dropdown-menu { position: absolute; top: calc(100% + 10px); right: 0; background: #111118; border: 1px solid rgba(255,57,142,0.3); border-radius: 12px; padding: 8px; min-width: 180px; opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; z-index: 300; box-shadow: 0 16px 40px rgba(0,0,0,0.5); transform: translateY(-6px); }
+  .cz-cta-dropdown-menu.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .cz-cta-dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; color: #9a9ab0; text-decoration: none; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+  .cz-cta-dropdown-item:hover { background: rgba(255,255,255,0.06); color: #f0f0f0; }
   .cz-lang-btn { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 7px; border: 1px solid rgba(255,255,255,0.15); background: transparent; color: #9a9ab0; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .cz-lang-btn:hover { border-color: rgba(255,255,255,0.3); color: #f0f0f0; }
   @media (max-width: 640px) { .cz-nav { padding: 16px 20px; } .cz-nav-links { display: none; } }
@@ -381,6 +386,7 @@ export default function HomePage() {
   const [activeNav, setActiveNav] = useState(-1);
   const [caseIndex, setCaseIndex] = useState(0);
   const [ventureIndex, setVentureIndex] = useState(0);
+  const [ctaOpen, setCtaOpen] = useState(false);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const rotatorPhrases = [
@@ -546,29 +552,21 @@ export default function HomePage() {
         </div>
         <div className="cz-nav-links" role="navigation">
           {copy.navLinks.map((l) =>
-            l.label === "Services" ? (
-              /* ── DROPDOWN SERVICES ── */
-              <div key={l.label} className="cz-nav-dropdown">
-                <button className="cz-nav-dropdown-trigger">
-                  {l.label}
-                  <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
-                    <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
-                <div className="cz-nav-dropdown-menu">
-                  <a href="/ecosystem/formationsystemeagentique" className="cz-nav-dropdown-item">
-                    <span className="cz-nav-dropdown-item-icon">🎓</span>Formation
-                  </a>
-                  <a href="https://cal.com/wilfried-de-renty-timeslots" target="_blank" rel="noopener noreferrer" className="cz-nav-dropdown-item">
-                    <span className="cz-nav-dropdown-item-icon">📅</span>Prestation
-                  </a>
-                </div>
-              </div>
-            ) : (
-              <a key={l.label} href={l.href}>{l.label}</a>
-            )
+            <a key={l.label} href={l.href}>{l.label}</a>
           )}
-          <a href="#contact" className="cz-nav-cta">{copy.navCTA}</a>
+          <div className="cz-cta-dropdown">
+            <button className="cz-nav-cta" onClick={() => setCtaOpen(o => !o)}>
+              {copy.navCTA}
+            </button>
+            <div className={`cz-cta-dropdown-menu${ctaOpen ? " open" : ""}`}>
+              <a href="/ecosystem/formationsystemeagentique" className="cz-cta-dropdown-item" onClick={() => setCtaOpen(false)}>
+                🎓 Formation
+              </a>
+              <a href="https://cal.com/wilfried-de-renty-timeslots" target="_blank" rel="noopener noreferrer" className="cz-cta-dropdown-item" onClick={() => setCtaOpen(false)}>
+                📅 Prestation
+              </a>
+            </div>
+          </div>
           <button className="cz-lang-btn" onClick={() => window.location.href = "/US"}>🇬🇧 EN</button>
         </div>
       </nav>
