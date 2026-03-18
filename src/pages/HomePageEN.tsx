@@ -307,7 +307,7 @@ export default function HomePageEN() {
   const [scrollHintVisible, setScrollHintVisible] = useState(true);
   const [activeNav, setActiveNav] = useState(-1);
   const [caseIndex, setCaseIndex] = useState(0);
-  const [ventureIndex, setVentureIndex] = useState(0);
+  const [ventureIndex] = useState(0);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const rotatorPhrases = [
